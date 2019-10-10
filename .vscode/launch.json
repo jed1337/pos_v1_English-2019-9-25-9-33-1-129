@@ -11,7 +11,7 @@
             "env": { 
                 "NODE_PATH": "." 
             },
-            "trace": "all"
+            "trace": "true"
        }
     ]
 }

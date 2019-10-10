@@ -1,6 +1,7 @@
 'use strict';
 
 const output = require('../main/main');
+const fixtures = require('./fixtures');
 
 describe('pos', () => {
 
