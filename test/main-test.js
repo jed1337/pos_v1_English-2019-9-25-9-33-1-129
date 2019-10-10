@@ -1,5 +1,7 @@
 'use strict';
 
+const output = require('../main/main');
+
 describe('pos', () => {
 
   it('should print text', () => {
@@ -15,9 +17,7 @@ describe('pos', () => {
       'ITEM000005-2',
     ];
 
-    spyOn(console, 'log');
-
-    printReceipt(tags);
+    const actual = output.printReceipt(tags);
 
     const expectText = `***<store earning no money>Receipt ***
 Name：Sprite，Quantity：5 bottles，Unit：3.00(yuan)，Subtotal：12.00(yuan)
@@ -28,6 +28,6 @@ Total：58.50(yuan)
 Discounted prices：7.50(yuan)
 **********************`;
 
-    expect(console.log).toHaveBeenCalledWith(expectText);
+    expect(actual).toBe(expectText);
   });
 });
