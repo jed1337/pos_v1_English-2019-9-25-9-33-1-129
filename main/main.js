@@ -12,10 +12,10 @@ Discounted prices：7.50(yuan)
 }
 
 function decodeBarcodes(barcodes){
-    let decodedBarcodes=[];
+    const decodedBarcodes=[];
 
     for(let rawBarcode of barcodes){
-        let actualBarcode = rawBarcode.split('-')[0];
+        const actualBarcode = rawBarcode.split('-')[0];
         let count = Number(rawBarcode.split('-')[1]);
 
         if(isNaN(count)){
@@ -32,10 +32,10 @@ function decodeBarcodes(barcodes){
 }
 
 function combineBarcodes(decodedBarcodes){
-    let distinctBarcodes = Array.from(new Set(
+    const distinctBarcodes = Array.from(new Set(
         decodedBarcodes.map(db=>db.barcode)
     ));
-    let combinedBarcodes = [];
+    const combinedBarcodes = [];
 
     for(let distinctBarcode of distinctBarcodes){
         const totalCount = decodedBarcodes
