@@ -51,8 +51,27 @@ describe('pos', () => {
     expect(actual).toEqual(expected);
   });
 
-  it('should print text', () => {
+  it('should combine items', ()=>{
+    const decodedBarcodes = [
+      { barcode: 'ITEM000001', count: 1 },
+      { barcode: 'ITEM000002', count: 1 },
+      { barcode: 'ITEM000002', count: 1 },
+      { barcode: 'ITEM000003', count: 1 },
+      { barcode: 'ITEM000003', count: 1 },
+      { barcode: 'ITEM000003', count: 1 },
+    ];
 
+    const actual = combineBarcodes(decodedBarcodes);
+    const expected = [
+      { barcode: 'ITEM000001', count: 1 },
+      { barcode: 'ITEM000002', count: 2 },
+      { barcode: 'ITEM000003', count: 3 },
+    ]
+
+    expect(actual).toEqual(expected);
+  });
+
+  it('should print text', () => {
     const tags = [
       'ITEM000001',
       'ITEM000001',

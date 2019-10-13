@@ -31,6 +31,26 @@ function decodeBarcodes(barcodes){
     return decodedBarcodes;
 }
 
+function combineBarcodes(decodedBarcodes){
+    let distinctBarcodes = Array.from(new Set(
+        decodedBarcodes.map(db=>db.barcode)
+    ));
+    let combinedBarcodes = [];
+
+    for(let distinctBarcode of distinctBarcodes){
+        const totalCount = decodedBarcodes
+            .filter(db=>db.barcode===distinctBarcode)
+            .map(db=>db.count)
+            .reduce((acc, b)=>acc+b, 0);
+
+        combinedBarcodes.push(
+            {barcode: distinctBarcode, count: totalCount}
+        );
+    }
+
+    return combinedBarcodes;
+}
+
 // module.exports = {
 //     printReceipt: printReceipt
 // };
