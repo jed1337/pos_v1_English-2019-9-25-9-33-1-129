@@ -16,10 +16,10 @@ function decodeBarcodes(barcodes){
 
     for(let rawBarcode of barcodes){
         let actualBarcode = rawBarcode.split('-')[0];
-        let count = rawBarcode.split('-')[1];
+        let count = Number(rawBarcode.split('-')[1]);
 
-        if(count===undefined){
-            count = 1;
+        if(isNaN(count)){
+            count = Number(1);
         }
 
         decodedBarcodes.push({
