@@ -1,9 +1,17 @@
 'use strict';
 
-const output = require('../main/main');
-const fixtures = require('./fixtures');
-
 describe('pos', () => {
+
+  it('should decode 1 barcode with out quantity', ()=>{
+    const tag=['ITEM000001'];
+    const actual = decodeBarcodes(tag);
+    const expected = [{
+      barcode: 'ITEM000001',
+      count: 1
+    }];
+
+    expect(actual).toEqual(expected);
+  });
 
   it('should print text', () => {
 
@@ -18,7 +26,7 @@ describe('pos', () => {
       'ITEM000005-2',
     ];
 
-    const actual = output.printReceipt(tags);
+    const actual = printReceipt(tags);
 
     const expectText = `***<store earning no money>Receipt ***
 Name：Sprite，Quantity：5 bottles，Unit：3.00(yuan)，Subtotal：12.00(yuan)
@@ -32,3 +40,4 @@ Discounted prices：7.50(yuan)
     expect(actual).toBe(expectText);
   });
 });
+

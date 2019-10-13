@@ -1,3 +1,5 @@
+'use strict';
+
 function printReceipt(tags){
     return `***<store earning no money>Receipt ***
 Name：Sprite，Quantity：5 bottles，Unit：3.00(yuan)，Subtotal：12.00(yuan)
@@ -9,6 +11,26 @@ Discounted prices：7.50(yuan)
 **********************`;
 }
 
-module.exports = {
-    printReceipt: printReceipt
-};
+function decodeBarcodes(barcodes){
+    let decodedBarcodes=[];
+
+    for(let rawBarcode of barcodes){
+        let actualBarcode = rawBarcode.split('-')[0];
+        let count = rawBarcode.split('-')[1];
+
+        if(count===undefined){
+            count = 1;
+        }
+
+        decodedBarcodes.push({
+            barcode: actualBarcode,
+            count: count
+        })
+    }
+
+    return decodedBarcodes;
+}
+
+// module.exports = {
+//     printReceipt: printReceipt
+// };

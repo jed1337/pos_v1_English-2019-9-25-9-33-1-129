@@ -53,8 +53,3 @@ function loadPromotions() {
     }
   ];
 }
-
-module.export = {
-	loadAllItems : loadAllItems,
-	loadPromotions : loadPromotions
-}
