@@ -51,6 +51,18 @@ function combineBarcodes(decodedBarcodes){
     return combinedBarcodes;
 }
 
-// module.exports = {
-//     printReceipt: printReceipt
-// };
+function getItemsWithCount(combinedBarcodes){
+    let allItems = loadAllItems();
+    let itemsWithCount=[];
+    
+    for(let combinedBarcode of combinedBarcodes){
+        let loadedItem = allItems
+            .filter(item=>item.barcode === combinedBarcode.barcode)
+            [0];
+
+        loadedItem.count = combinedBarcode.count;
+        itemsWithCount.push(loadedItem);
+    }
+
+    return itemsWithCount;
+}

@@ -51,11 +51,11 @@ describe('pos', () => {
     expect(actual).toEqual(expected);
   });
 
-  it('should combine items', ()=>{
+  it('should combine items', () => {
     const decodedBarcodes = [
+      { barcode: 'ITEM000002', count: 1 },
+      { barcode: 'ITEM000002', count: 1 },
       { barcode: 'ITEM000001', count: 1 },
-      { barcode: 'ITEM000002', count: 1 },
-      { barcode: 'ITEM000002', count: 1 },
       { barcode: 'ITEM000003', count: 1 },
       { barcode: 'ITEM000003', count: 1 },
       { barcode: 'ITEM000003', count: 1 },
@@ -63,10 +63,28 @@ describe('pos', () => {
 
     const actual = combineBarcodes(decodedBarcodes);
     const expected = [
-      { barcode: 'ITEM000001', count: 1 },
       { barcode: 'ITEM000002', count: 2 },
+      { barcode: 'ITEM000001', count: 1 },
       { barcode: 'ITEM000003', count: 3 },
     ]
+
+    expect(actual).toEqual(expected);
+  });
+
+  it('should get items with count', () => {
+    const combinedBarcodes = [
+      { barcode: 'ITEM000002', count: 2 },
+      { barcode: 'ITEM000001', count: 1 },
+      { barcode: 'ITEM000003', count: 3 },
+    ];
+
+    const actual = getItemsWithCount(combinedBarcodes);
+
+    const expected = [
+      { barcode: 'ITEM000002', name: 'Apple', unit: 'pound', price: 5.50, count: 2 },
+      { barcode: 'ITEM000001', name: 'Sprite', unit: 'bottle', price: 3.00, count: 1 },
+      { barcode: 'ITEM000003', name: 'Litchi', unit: 'pound', price: 15.00, count: 3 }
+    ];
 
     expect(actual).toEqual(expected);
   });
