@@ -89,6 +89,19 @@ describe('pos', () => {
     expect(actual).toEqual(expected);
   });
 
+  it('should get single receipt item with discount', ()=>{
+      const itemsWithCount = [
+        { barcode: 'ITEM000001', name: 'Sprite', unit: 'bottle', price: 3.00, count: 5 },
+      ]
+
+      const actual = getReceiptItems(itemsWithCount);
+
+      const expected = [
+        { barcode: 'ITEM000001', name: 'Sprite', unit: 'bottle', price: 3.00, count: 5, discountedPrice: 12.00},
+      ];
+
+  });
+
   it('should print text', () => {
     const tags = [
       'ITEM000001',
