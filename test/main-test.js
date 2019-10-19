@@ -89,13 +89,37 @@ describe('pos', () => {
     expect(actual).toEqual(expected);
   });
 
-  it('should get the discount price of an item', () => {
+  it('should get item with total price', () => {
+    const item =
+      { barcode: 'ITEM000001', name: 'Sprite', unit: 'bottle', price: 3.00, count: 5 }
+      ;
+
+    const actual = calculateTotalPrice(item);
+
+    const expected = 15.00;
+
+    expect(actual).toEqual(expected);
+  });
+  
+  it('should get item with total price. Given count with decimal places', () => {
+    const item =
+      { barcode: 'ITEM000004', name: 'Battery', unit: 'a', price: 2.00, count: 3.1 }
+      ;
+
+    const actual = calculateTotalPrice(item);
+
+    const expected = 6.2;
+
+    expect(actual).toEqual(expected);
+  });
+
+  it('should get the discounted price of an item', () => {
     const itemWithCount = 
       { barcode: 'ITEM000001', name: 'Sprite', unit: 'bottle', price: 3.00, count: 5 };
 
-    const actual = calculateDiscountPrice(itemWithCount);
+    const actual = calculateDiscountedPrice(itemWithCount);
 
-    const expected = 12.00;
+    const expected = 6.00;
 
     expect(actual).toEqual(expected);
   });
@@ -116,6 +140,7 @@ describe('pos', () => {
 
   //   expect(actual).toEqual(expected);
   // });
+
 
   it('should print text', () => {
     const tags = [
