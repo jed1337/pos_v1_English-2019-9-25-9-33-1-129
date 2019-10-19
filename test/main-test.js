@@ -124,23 +124,44 @@ describe('pos', () => {
     expect(actual).toEqual(expected);
   });
 
-  // it('should get single receipt item with discounted price', () => {
-  //   const itemsWithCount = [
-  //     { barcode: 'ITEM000001', name: 'Sprite', unit: 'bottle', price: 3.00, count: 5 },
-  //   ]
+  it('should get single receipt item with discounted price', () => {
+    const items = [
+      { barcode: 'ITEM000001', name: 'Sprite', unit: 'bottle', price: 3.00, count: 5 },
+    ]
 
-  //   const actual = getReceiptItems(itemsWithCount);
+    const actual = getReceiptItems(items);
 
-  //   const expected = [
-  //     {
-  //       barcode: 'ITEM000001', name: 'Sprite', unit: 'bottle', price: 3.00, count: 5,
-  //       normalPrice: 15.00, discountedPrice: 12.00
-  //     },
-  //   ];
+    const expected = [
+      {
+        barcode: 'ITEM000001', name: 'Sprite', unit: 'bottle', price: 3.00, count: 5,
+        normalPrice: 15.00, discountedPrice: 12.00
+      },
+    ];
 
-  //   expect(actual).toEqual(expected);
-  // });
+    expect(actual).toEqual(expected);
+  });
 
+  it('should get multiple receipt items with discounted price', () => {
+    const items = [
+      { barcode: 'ITEM000001', name: 'Sprite', unit: 'bottle', price: 3.00, count: 5 },
+      { barcode: 'ITEM000002', name: 'Apple', unit: 'pound', price: 5.50, count: 3 },
+    ]
+
+    const actual = getReceiptItems(items);
+
+    const expected = [
+      {
+        barcode: 'ITEM000001', name: 'Sprite', unit: 'bottle', price: 3.00, count: 5,
+        normalPrice: 15.00, discountedPrice: 12.00
+      },
+      {
+        barcode: 'ITEM000002', name: 'Apple', unit: 'pound', price: 5.50, count: 3,
+        normalPrice: 16.50, discountedPrice: 16.50
+      },
+    ];
+
+    expect(actual).toEqual(expected);
+  });
 
   it('should print text', () => {
     const tags = [

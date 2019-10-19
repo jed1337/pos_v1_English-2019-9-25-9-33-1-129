@@ -80,15 +80,17 @@ function calculateDiscountedPrice(item){
             }
         }
     }
-    return 0;
+    return calculateTotalPrice(item);
 }
 
-function getReceiptItems(itemsWithCount){
+function getReceiptItems(items){
     let receiptItems=[];
-    for(let item of itemsWithCount){
+    for(let item of items){
         let receiptItem = item;
-        receiptItem.normalPrice = item.price * item.count;
-        receiptItem.discountPrice = calculateDiscountedPrice(item);
+        receiptItem.normalPrice = calculateTotalPrice(item);
+        receiptItem.discountedPrice = calculateDiscountedPrice(item);
+
+        receiptItems.push(receiptItem);
     }
     return receiptItems;
 }
