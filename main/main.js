@@ -76,7 +76,7 @@ function calculateDiscountedPrice(item){
     for(let promotion of promotions){
         if(promotion.type==="BUY_TWO_GET_ONE_FREE"){
             if(promotion.barcodes.includes(item.barcode)){
-                return Math.floor(item.count/2)*item.price;
+                return calculateTotalPrice(item)-Math.floor(item.count/3)*item.price;
             }
         }
     }

@@ -119,12 +119,12 @@ describe('pos', () => {
 
     const actual = calculateDiscountedPrice(itemWithCount);
 
-    const expected = 6.00;
+    const expected = 12.00;
 
     expect(actual).toEqual(expected);
   });
 
-  // it('should get single receipt item with discount', () => {
+  // it('should get single receipt item with discounted price', () => {
   //   const itemsWithCount = [
   //     { barcode: 'ITEM000001', name: 'Sprite', unit: 'bottle', price: 3.00, count: 5 },
   //   ]
