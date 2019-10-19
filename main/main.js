@@ -1,5 +1,33 @@
 'use strict';
 
+function printReceipt(items) {
+    let receiptItems = getReceiptItems(getItemsWithCount(combineBarcodes(decodeBarcodes(items))));
+
+    let receipt = '***<store earning no money>Receipt ***\n';
+    for (let receiptItem of receiptItems) {
+        receipt += `${printSingleReceiptItem(receiptItem)}\n`;
+    }
+
+    receipt += `----------------------\n`;
+
+    const total = receiptItems
+        .map(receiptItem => receiptItem.discountedPrice)
+        .reduce((a, b) => a + b, 0)
+        .toFixed(2);
+
+    const discountedPrices = receiptItems
+        .map(receiptItem => receiptItem.normalPrice-receiptItem.discountedPrice)
+        .reduce((a, b) => a + b, 0)
+        .toFixed(2);
+
+    receipt += `Total: ${total}(yuan)\n`
+    receipt += `Discounted prices: ${discountedPrices}(yuan)\n`
+    
+    receipt += `**********************`;
+
+    return receipt;
+}
+
 function decodeBarcodes(barcodes) {
     const decodedBarcodes = [];
 
@@ -56,6 +84,18 @@ function getItemsWithCount(combinedBarcodes) {
     return itemsWithCount;
 }
 
+function getReceiptItems(items) {
+    let receiptItems = [];
+    for (let item of items) {
+        let receiptItem = item;
+        receiptItem.normalPrice = calculateTotalPrice(item);
+        receiptItem.discountedPrice = calculateDiscountedPrice(item);
+
+        receiptItems.push(receiptItem);
+    }
+    return receiptItems;
+}
+
 function calculateTotalPrice(item) {
     return item.price * item.count;
 }
@@ -72,50 +112,9 @@ function calculateDiscountedPrice(item) {
     return calculateTotalPrice(item);
 }
 
-function getReceiptItems(items) {
-    let receiptItems = [];
-    for (let item of items) {
-        let receiptItem = item;
-        receiptItem.normalPrice = calculateTotalPrice(item);
-        receiptItem.discountedPrice = calculateDiscountedPrice(item);
-
-        receiptItems.push(receiptItem);
-    }
-    return receiptItems;
-}
-
 function printSingleReceiptItem(item) {
     return `Name: ${item.name}, ` +
         `Quantity: ${item.count} ${item.unit}s, ` +
         `Unit: ${item.price.toFixed(2)}(yuan), ` +
         `Subtotal: ${item.discountedPrice.toFixed(2)}(yuan)`;
-}
-
-
-function printReceipt(items) {
-    let receiptItems = getReceiptItems(getItemsWithCount(combineBarcodes(decodeBarcodes(items))));
-
-    let receipt = '***<store earning no money>Receipt ***\n';
-    for (let receiptItem of receiptItems) {
-        receipt += `${printSingleReceiptItem(receiptItem)}\n`;
-    }
-
-    receipt += `----------------------\n`;
-
-    const total = receiptItems
-        .map(receiptItem => receiptItem.discountedPrice)
-        .reduce((a, b) => a + b, 0)
-        .toFixed(2);
-
-    const discountedPrices = receiptItems
-        .map(receiptItem => receiptItem.normalPrice-receiptItem.discountedPrice)
-        .reduce((a, b) => a + b, 0)
-        .toFixed(2);
-
-    receipt += `Total: ${total}(yuan)\n`
-    receipt += `Discounted prices: ${discountedPrices}(yuan)\n`
-    
-    receipt += `**********************`;
-
-    return receipt;
 }
