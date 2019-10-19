@@ -89,18 +89,33 @@ describe('pos', () => {
     expect(actual).toEqual(expected);
   });
 
-  it('should get single receipt item with discount', ()=>{
-      const itemsWithCount = [
-        { barcode: 'ITEM000001', name: 'Sprite', unit: 'bottle', price: 3.00, count: 5 },
-      ]
+  it('should get the discount price of an item', () => {
+    const itemWithCount = 
+      { barcode: 'ITEM000001', name: 'Sprite', unit: 'bottle', price: 3.00, count: 5 };
 
-      const actual = getReceiptItems(itemsWithCount);
+    const actual = calculateDiscountPrice(itemWithCount);
 
-      const expected = [
-        { barcode: 'ITEM000001', name: 'Sprite', unit: 'bottle', price: 3.00, count: 5, discountedPrice: 12.00},
-      ];
+    const expected = 12.00;
 
+    expect(actual).toEqual(expected);
   });
+
+  // it('should get single receipt item with discount', () => {
+  //   const itemsWithCount = [
+  //     { barcode: 'ITEM000001', name: 'Sprite', unit: 'bottle', price: 3.00, count: 5 },
+  //   ]
+
+  //   const actual = getReceiptItems(itemsWithCount);
+
+  //   const expected = [
+  //     {
+  //       barcode: 'ITEM000001', name: 'Sprite', unit: 'bottle', price: 3.00, count: 5,
+  //       normalPrice: 15.00, discountedPrice: 12.00
+  //     },
+  //   ];
+
+  //   expect(actual).toEqual(expected);
+  // });
 
   it('should print text', () => {
     const tags = [

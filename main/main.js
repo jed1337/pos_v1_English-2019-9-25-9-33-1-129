@@ -66,3 +66,25 @@ function getItemsWithCount(combinedBarcodes){
 
     return itemsWithCount;
 }
+
+function calculateDiscountPrice(itemWithCount){
+    const promotions = loadPromotions();
+    for(let promotion of promotions){
+        if(promotion.type==="BUY_TWO_GET_ONE_FREE"){
+            if(promotion.barcodes.includes(itemWithCount.barcode)){
+
+            }
+        }
+    }
+    return 0;
+}
+
+function getReceiptItems(itemsWithCount){
+    let receiptItems=[];
+    for(let item of itemsWithCount){
+        let receiptItem = item;
+        receiptItem.normalPrice = item.price * item.count;
+        receiptItem.discountPrice = calculateDiscountPrice(item);
+    }
+    return receiptItems;
+}
