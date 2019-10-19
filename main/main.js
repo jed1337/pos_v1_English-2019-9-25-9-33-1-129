@@ -1,16 +1,5 @@
 'use strict';
 
-function printReceipt(tags){
-    return `***<store earning no money>Receipt ***
-Name：Sprite，Quantity：5 bottles，Unit：3.00(yuan)，Subtotal：12.00(yuan)
-Name：Litchi，Quantity：2.5 pounds，Unit：15.00(yuan)，Subtotal：37.50(yuan)
-Name：Instant Noodles，Quantity：3 bags，Unit：4.50(yuan)，Subtotal：9.00(yuan)
-----------------------
-Total：58.50(yuan)
-Discounted prices：7.50(yuan)
-**********************`;
-}
-
 function decodeBarcodes(barcodes){
     const decodedBarcodes=[];
 
@@ -93,4 +82,29 @@ function getReceiptItems(items){
         receiptItems.push(receiptItem);
     }
     return receiptItems;
+}
+
+function printSingleReceiptItem(item){
+    return `Name: ${item.name}, `+
+        `Quantity: ${item.count} ${item.unit}s, `+
+        `Unit: ${item.price.toFixed(2)}(yuan), `+
+        `Subtotal: ${item.discountedPrice.toFixed(2)}(yuan)`;
+}
+
+
+function printReceipt(items){
+    // let receipt = '***<store earning no money>Receipt ***\n';
+
+    // for(let item of items){
+    //     receipt+=`Name ${item.name}, Quantity: $`
+    // }
+
+    return `***<store earning no money>Receipt ***
+Name：Sprite，Quantity：5 bottles，Unit：3.00(yuan)，Subtotal：12.00(yuan)
+Name：Litchi，Quantity：2.5 pounds，Unit：15.00(yuan)，Subtotal：37.50(yuan)
+Name：Instant Noodles，Quantity：3 bags，Unit：4.50(yuan)，Subtotal：9.00(yuan)
+----------------------
+Total：58.50(yuan)
+Discounted prices：7.50(yuan)
+**********************`;
 }

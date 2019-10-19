@@ -100,7 +100,7 @@ describe('pos', () => {
 
     expect(actual).toEqual(expected);
   });
-  
+
   it('should get item with total price. Given count with decimal places', () => {
     const item =
       { barcode: 'ITEM000004', name: 'Battery', unit: 'a', price: 2.00, count: 3.1 }
@@ -114,7 +114,7 @@ describe('pos', () => {
   });
 
   it('should get the discounted price of an item', () => {
-    const itemWithCount = 
+    const itemWithCount =
       { barcode: 'ITEM000001', name: 'Sprite', unit: 'bottle', price: 3.00, count: 5 };
 
     const actual = calculateDiscountedPrice(itemWithCount);
@@ -159,6 +159,34 @@ describe('pos', () => {
         normalPrice: 16.50, discountedPrice: 16.50
       },
     ];
+
+    expect(actual).toEqual(expected);
+  });
+
+  it('should print a single receipt row', () => {
+    const item = {
+      barcode: 'ITEM000002', name: 'Apple', unit: 'pound', price: 5.50, count: 3,
+      normalPrice: 16.50, discountedPrice: 16.50
+    };
+
+    const actual = printSingleReceiptItem(item);
+
+    const expected =
+      `Name: Apple, Quantity: 3 pounds, Unit: 5.50(yuan), Subtotal: 16.50(yuan)`
+
+    expect(actual).toEqual(expected);
+  });
+
+  it('should print a single receipt row of item with discount', () => {
+    const item = {
+      barcode: 'ITEM000001', name: 'Sprite', unit: 'bottle', price: 3.00, count: 5,
+      normalPrice: 15.00, discountedPrice: 12.00
+    };
+
+    const actual = printSingleReceiptItem(item);
+
+    const expected =
+      `Name: Sprite, Quantity: 5 bottles, Unit: 3.00(yuan), Subtotal: 12.00(yuan)`
 
     expect(actual).toEqual(expected);
   });
